@@ -15,6 +15,12 @@ class User(models.Model):
     id = models.IntegerField(primary_key=True)
     streak = models.IntegerField(default=0)
 
+# class Response(models.Model):
+#     answer = models.CharField(max_length=200)
+#     explanation = models.CharField(max_length=200)
+#     finished = models.BooleanField(default=False)
+#     hint = models.CharField(max_length=200)
+
 class Daily(models.Model):
     id =  models.AutoField(primary_key=True)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -22,3 +28,4 @@ class Daily(models.Model):
     date = models.CharField(max_length=200)
     content = models.CharField(max_length=200)
     type = models.CharField(max_length=200)
+    # details = models.ForeignKey(Response, on_delete=models.CASCADE)

@@ -10,6 +10,8 @@ from typing import List
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+import json
+
 
 import google.generativeai as genai
 
@@ -56,40 +58,47 @@ def get_today(request):
     
 @api.post("/message", response={200: DailySchema, 404: NotFoundSchema})
 def send_question(request, data: ContentSchema):
-    # try:
     user_id = request.headers['User']
     date = datetime.now().strftime("%Y-%m-%d")
-    print(os.environ.get('SECRET_KEY'))
+    todaysword = getTodaysWord(date)
+    
+    # check if user exists
     if not User.objects.get(id=user_id):
         return 404, {'message': 'Could not find user'} 
 
+    # add new message to database
     new_message = Daily.objects.create(user=user_id, date=date, content=data.content, type='user')
 
+    # Generate the prompt
     model = genai.GenerativeModel(
         model_name='gemini-1.5-flash-001',
         system_instruction=["You are a game master of a simple game of 20 questions.",
-                            "The word that the user is trying to guess is Dog.",
+                            f"The word that the user is trying to guess is: {todaysword}.",
                             "You can not tell the user the word unless the user correctly identifies it.",
                             "The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why without giving the answer away.",
                             "Every 5 question give the user a better hint to push them in the correct direction.",
-                            "When the word is found responde with a congratulations message and the key word DONE."
+                            "Important! when the word is found respond with a congratulations message and the key word DONE.",
+                            "If the user responds with something unirrelevant count it as a question and politetly tell the user to ask a question."
                             ])
     
+    # Get all old messages
     today = Daily.objects.filter(user=user_id, date=date).values()
     
+    # Send all old and new messages to gemini
     messages = []
     for message in today:
-        print(message)
         messages.append({'role':message['type'], 'parts':[message['content']]})
 
     response = model.generate_content(messages)
     
     new_message = Daily.objects.create(user=user_id, date=date, content=response.text, type='model')
     return new_message
-    # except:
-    #     return 404, {'message': 'Could not send message'}
+    
 
 
-# model = genai.GenerativeModel('gemini-1.0-pro')
-        # response = model.generate_content("What color is the sky?")
-        # print(response.text)
+
+
+def getTodaysWord(date:str) -> str:
+    with open('word.json', 'r') as file:
+        data = json.load(file)
+    return data[date]
