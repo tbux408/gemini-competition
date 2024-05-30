@@ -50,27 +50,46 @@ def get_today(request):
 
         today = Daily.objects.filter(user=user_id, date=date).values()
 
-        model = genai.GenerativeModel('gemini-1.0-pro')
-        response = model.generate_content("Please give me python code to sort a list.")
-        print(response.text)
-
         return today
     except:
         return 404, {'message': 'Could not find list'}
     
 @api.post("/message", response={200: DailySchema, 404: NotFoundSchema})
 def send_question(request, data: ContentSchema):
-    try:
-        user_id = request.headers['User']
-        date = datetime.now().strftime("%Y-%m-%d")
-        print(os.environ.get('SECRET_KEY'))
-        if not User.objects.get(id=user_id):
-            return 404, {'message': 'Could not find user'} 
+    # try:
+    user_id = request.headers['User']
+    date = datetime.now().strftime("%Y-%m-%d")
+    print(os.environ.get('SECRET_KEY'))
+    if not User.objects.get(id=user_id):
+        return 404, {'message': 'Could not find user'} 
 
-        new_message = Daily.objects.create(user=user_id, date=date, content=data.content, type='user')
+    new_message = Daily.objects.create(user=user_id, date=date, content=data.content, type='user')
+
+    model = genai.GenerativeModel(
+        model_name='gemini-1.5-flash-001',
+        system_instruction=["You are a game master of a simple game of 20 questions.",
+                            "The word that the user is trying to guess is Dog.",
+                            "You can not tell the user the word unless the user correctly identifies it.",
+                            "The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why without giving the answer away.",
+                            "Every 5 question give the user a better hint to push them in the correct direction.",
+                            "When the word is found responde with a congratulations message and the key word DONE."
+                            ])
+    
+    today = Daily.objects.filter(user=user_id, date=date).values()
+    
+    messages = []
+    for message in today:
+        print(message)
+        messages.append({'role':message['type'], 'parts':[message['content']]})
+
+    response = model.generate_content(messages)
+    
+    new_message = Daily.objects.create(user=user_id, date=date, content=response.text, type='model')
+    return new_message
+    # except:
+    #     return 404, {'message': 'Could not send message'}
 
 
-        return new_message
-    except:
-        return 404, {'message': 'Could not send message'}
-
+# model = genai.GenerativeModel('gemini-1.0-pro')
+        # response = model.generate_content("What color is the sky?")
+        # print(response.text)
