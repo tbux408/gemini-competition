@@ -47,7 +47,7 @@ def get_user(request, id):
 @api.get("/today", response={200: List[DailySchema], 404: NotFoundSchema})
 def get_today(request):
     try:
-        user_id = request.headers['User']
+        user_id = request.headers['Authorization']
         date = datetime.now().strftime("%Y-%m-%d")
 
         today = Daily.objects.filter(user=user_id, date=date).values()
@@ -58,7 +58,7 @@ def get_today(request):
     
 @api.post("/message", response={200: DailySchema, 404: NotFoundSchema})
 def send_question(request, data: ContentSchema):
-    user_id = request.headers['User']
+    user_id = request.headers['Authorization']
     date = datetime.now().strftime("%Y-%m-%d")
     todaysword = getTodaysWord(date)
     

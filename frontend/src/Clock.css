@@ -1,0 +1,23 @@
+.date-square{
+    background-color: #6D6466;
+ 
+    height: 1.2rem;
+    padding: .8rem;
+    margin: .2rem;
+    color: #f3e5f5;
+    font-family: monospace;
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+
+    border-radius: 5px;
+    border: solid;
+    border-color: #f3e5f5;
+}
+
+.date-container{
+    display: flex;
+    justify-content: center;
+}

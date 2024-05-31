@@ -1,0 +1,20 @@
+.user-block {
+  background-color: #ecf0f1;
+  padding: 1.2rem;
+  border-radius: 5px 5px 0 0;
+  text-align: left;
+}
+
+.model-block {
+  background-color: #ecf0f1;
+  padding: 1.2rem;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 1.2rem;
+  text-align: right;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
