@@ -1,0 +1,22 @@
+.empty-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem;
+  border-radius: 5px;
+  text-align: left;
+  margin-top: 0.2rem;
+  background-color: #434a42;
+  cursor: pointer;
+}
+
+.hint-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem;
+  border-radius: 5px;
+  text-align: left;
+  margin-top: 0.2rem;
+  background-color: #ecf0f1;
+}

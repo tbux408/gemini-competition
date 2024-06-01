@@ -1,0 +1,38 @@
+.input-block {
+  background-color: #ecf0f1;
+  height: 3rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 5px;
+  text-align: left;
+  margin-top: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.input-field {
+  background: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: Arial, sans-serif;
+  color: #434a42;
+  font-size: large;
+}
+
+.model-block {
+  background-color: #ecf0f1;
+  padding: 1.2rem;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 1.2rem;
+  text-align: right;
+}

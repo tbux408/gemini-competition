@@ -76,9 +76,12 @@ def send_question(request, data: ContentSchema):
                             f"The word that the user is trying to guess is: {todaysword}.",
                             "You can not tell the user the word unless the user correctly identifies it.",
                             "The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why without giving the answer away.",
-                            "Every 5 question give the user a better hint to push them in the correct direction.",
+                            "On Question 6, 11, and 16 give the user a better hint to push them in the correct direction.",
                             "Important! when the word is found respond with a congratulations message and the key word DONE.",
-                            "If the user responds with something unirrelevant count it as a question and politetly tell the user to ask a question."
+                            "If the user responds with something unirrelevant count it as a question and responde with 'No, I can't help with that. Ask yes or no questions.'"
+                            "Do not use the word any of the hints."
+                            "If the user asks a question that can't be answered with yes/no/sometimes/maybe, respond with 'No, ask yes or no questions.'",
+                            "If the user asks for the word, respond with 'No, ask yes or no questions.'"
                             ])
     
     # Get all old messages
