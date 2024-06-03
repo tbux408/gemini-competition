@@ -1,24 +1,24 @@
 # gemini-competition
 
 # Starting the backend
-cd into the first djapp directory
+- cd into the first djapp directory
 
-## Set up:
+### Set up:
 Make sure these are installed
-pip install django-ninja 
-pip install python-dotenv
-pip install google-generativeai
+- pip install django-ninja 
+- pip install python-dotenv
+- pip install google-generativeai
 
 Ensure that a .env exist in the first djapp directory
-SECRET_KEY=<google gemini api secret key>
+- SECRET_KEY=google gemini api secret key
 
-## Run Backend:
-python manage.py runserver
+### Run Backend:
+- python manage.py runserver
 
-# starting the frontend
-cd into the frontend directory
-npm install
-npm start
+# Starting the frontend
+- cd into the frontend directory
+- npm install
+- npm start
 
 # Versions
 - Python 3.12.3
