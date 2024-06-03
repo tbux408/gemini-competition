@@ -144,7 +144,14 @@ function Home() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <div className="help-button">
         <IconButton
           aria-label="fingerprint"
@@ -158,7 +165,7 @@ function Home() {
       <Typography
         variant="h1"
         style={{
-          backgroundImage: "linear-gradient(#e66465, #9198e5)",
+          backgroundImage: "linear-gradient(#90caf9, #FFFFB3)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           cursor: "pointer",
@@ -235,10 +242,10 @@ function Home() {
           <DialogContentText id="alert-dialog-description">
             <Typography variant="h6">Basics:</Typography>
             <Typography variant="body1">
-              A simple game of 20 questions. Each day a different word is chosen
-              for everyone around the world to guess. Your goal is to ask
-              questions to find that word. Every 5 questions you will get a hint
-              to push you in the correct direction.
+              A simple game of 20 questions. Ask yes or no questions until you
+              think you have found the word. When ready to guess the word, just
+              ask if the word is...? Every 5 questions a hint is provided. A new
+              challenge is released daily at midnight.
             </Typography>
           </DialogContentText>
 
@@ -246,10 +253,14 @@ function Home() {
             <Typography variant="h6">Example Questions:</Typography>
             <Typography variant="body1">Is the word an animal?</Typography>
             <Typography variant="body1">Is the word edible?</Typography>
+            <Typography variant="body1">Is todays word Questle?</Typography>
           </DialogContentText>
           <DialogContentText id="alert-dialog-description">
             <Typography variant="h6">Controls:</Typography>
-            <Typography variant="body1" style={{ display: "flex" }}>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               Type in the{" "}
               <div
                 style={{
@@ -260,18 +271,22 @@ function Home() {
                   padding: "1px",
                 }}
               >
-                Ask a question...
+                Ask question #...
               </div>{" "}
-              Box
+              box
             </Typography>
-            <Typography variant="body1" style={{ display: "flex" }}>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               Press
               <div
                 style={{
                   border: "solid",
                   borderRadius: "5px",
-                  marginLeft: "5px",
-                  marginRight: "5px",
+                  marginLeft: "6px",
+                  marginRight: "6px",
+                  padding: "1px",
                 }}
               >
                 Enter

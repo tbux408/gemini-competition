@@ -27,7 +27,7 @@ function Game({ messages, sendMessage, setMessages, success, failure }) {
   };
 
   return (
-    <div style={{ padding: "1.2rem" }}>
+    <div style={{ padding: "1.2rem", width: "100%" }}>
       <div className="container">
         <div style={{ width: `min(100%, 35rem)` }}>
           {messages.map((message, key) => (
@@ -47,7 +47,9 @@ function Game({ messages, sendMessage, setMessages, success, failure }) {
                 <>
                   <input
                     className="input-field"
-                    placeholder="Ask a question..."
+                    placeholder={`Ask question ${
+                      Math.floor(messages.length / 2) + 1
+                    }...`}
                     value={inputValue}
                     onChange={handleChange}
                     onKeyDown={handleKeyPress}
@@ -58,7 +60,9 @@ function Game({ messages, sendMessage, setMessages, success, failure }) {
               ) : (
                 <input
                   className="input-field"
-                  placeholder="Ask a question..."
+                  placeholder={`Ask question ${
+                    Math.floor(messages.length / 2) + 1
+                  }...`}
                   value={inputValue}
                   onChange={handleChange}
                   onKeyDown={handleKeyPress}
@@ -68,6 +72,13 @@ function Game({ messages, sendMessage, setMessages, success, failure }) {
             </div>
           )}
 
+          {success || failure ? (
+            <EmptyGameBlock
+              i={Math.floor(messages.length / 2)}
+              success={success}
+              failure={failure}
+            />
+          ) : null}
           {Array.from(
             { length: 19 - Math.floor(messages.length / 2) },
             (_, i) => (

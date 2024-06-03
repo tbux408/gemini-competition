@@ -74,15 +74,30 @@ def send_question(request, data: ContentSchema):
         model_name='gemini-1.5-flash-001',
         system_instruction=["You are a game master of a simple game of 20 questions.",
                             f"The word that the user is trying to guess is: {todaysword}.",
-                            "You can not tell the user the word unless the user correctly identifies it.",
-                            "The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why without giving the answer away.",
+                            "You can not tell the user the word unless the user correctly identifies it. Or the users 20th question is wrong and then reveal the answer.",
+                            "Important! The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why the question was wrong without giving the answer away.",
                             "On Question 6, 11, and 16 give the user a better hint to push them in the correct direction.",
                             "Important! when the word is found respond with a congratulations message and the key word DONE.",
                             "If the user responds with something unirrelevant count it as a question and responde with 'No, I can't help with that. Ask yes or no questions.'"
-                            "Do not use the word any of the hints."
+                            "Do not use the secret word any of the hints."
                             "If the user asks a question that can't be answered with yes/no/sometimes/maybe, respond with 'No, ask yes or no questions.'",
-                            "If the user asks for the word, respond with 'No, ask yes or no questions.'"
+                            "If the user asks for the correct word, respond with 'No, ask yes or no questions.'",
+                            "If the user guesses the wrong word, respond with 'No, that is not the correct word.'"
+
+
+
                             ])
+    #                          "You are a game master of a simple game of 20 questions.",
+    #                         f"The word that the user is trying to guess is: {todaysword}.",
+    #                         "You can not tell the user the word unless the user correctly identifies it. Or the users 20th question is wrong and then reveal the answer.",
+    #                         "Important! The user will ask you a question, give a simple yes/no/sometimes/maybe response with a quick explanation for why the question was wrong without giving the answer away.",
+    #                         "On Question 6, 11, and 16 give the user a better hint to push them in the correct direction.",
+    #                         "Important! when the word is found respond with a congratulations message and the key word DONE.",
+    #                         "If the user responds with something unirrelevant count it as a question and responde with 'No, I can't help with that. Ask yes or no questions.'"
+    #                         "Do not use the secret word any of the hints."
+    #                         "If the user asks a question that can't be answered with yes/no/sometimes/maybe, respond with 'No, ask yes or no questions.'",
+    #                         "If the user asks for the correct word, respond with 'No, ask yes or no questions.'",
+    #                         "If the user guesses the wrong word, respond with 'No, that is not the correct word.'"
     
     # Get all old messages
     today = Daily.objects.filter(user=user_id, date=date).values()
